@@ -10,7 +10,11 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.ArrayList;
 
+import com.case_notification.BuildConfig;
+import com.case_notification.R;
 
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 
 public class PackageList {
   private Application application;
@@ -43,7 +47,8 @@ public class PackageList {
 
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
-      new MainReactPackage()
+      new MainReactPackage(),
+      new RNGestureHandlerPackage()
     ));
   }
 }

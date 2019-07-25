@@ -15,11 +15,12 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import AppNavigator from "./App/navigator/navigator";
 
 const App = () => {
   return (
     <Fragment>
-      <StatusBar barStyle="dark-content" />
+      <AppNavigator/>
     </Fragment>
   );
 };
