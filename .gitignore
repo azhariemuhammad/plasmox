@@ -87,13 +87,14 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-.gradle
+android/.gradle
+android/app/build
+local.properties
 *.iml
-android/.idea/
-android/android.iml
-android/RNAdMob.iml
-android/gradle/
-android/gradlew
-android/gradlew.bat
-android/local.properties
-android/app/BUCK
+
+
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore
