@@ -1,4 +1,4 @@
-#Thu Jul 25 18:55:20 WIB 2019
+#Sun Jul 28 14:00:05 WIB 2019
 base.0=/Users/azharou/Documents/side_project/case_notification/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
