@@ -9,11 +9,15 @@ class PatientInfoScreen extends React.Component {
         header: null
     };
 
+    handlePost(caseInfo) {
+        console.log(caseInfo)
+    }
+
     render() {
         return (
             <View>
                 <BoxHeader title={'Silahkan Masukkan Data Pasien'}/>
-                <FormPatient />
+                <FormPatient post={(caseInfo) => this.handlePost(caseInfo)} />
             </View>
         )
     }
