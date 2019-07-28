@@ -3,14 +3,24 @@ import {Text, View} from 'react-native';
 
 import BoxHeader from "../component/BoxHeader";
 import FormPatient from "../component/FormPatient";
+import {baseService} from "../services";
 
 class PatientInfoScreen extends React.Component {
     static navigationOptions = {
         header: null
     };
 
-    handlePost(caseInfo) {
+    async handlePost(caseInfo) {
         console.log(caseInfo)
+        await baseService().login().then(res => {
+            console.log(res)
+
+        })
+        await baseService().postCaseInformation(caseInfo).then(res => {
+            console.log(res)
+        }).catch(e => {
+            console.log(e)
+        })
     }
 
     render() {

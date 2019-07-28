@@ -13,7 +13,8 @@ class FormPatient extends React.Component {
             address: "",
             disease_type: "",
             classification_case: "",
-            chosenDate: ""
+            // chosenDate: "",
+            is_pregnant: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -66,6 +67,26 @@ class FormPatient extends React.Component {
                             <Picker.Item label="Perempuan" value="2"/>
                         </Picker>
                     </Item>
+                    {(this.state.gender === "2") &&
+                        <View>
+                            <Text>Hamil</Text>
+                            <Item picker>
+                                <Picker
+                                    mode="dropdown"
+                                    placeholder="Hamil / Tidak Hamil"
+                                    placeholderStyle={{color: "#bfc6ea"}}
+                                    placeholderIconColor="#007aff"
+                                    onValueChange={value => {
+                                        this.setState({is_pregnant: value})
+                                    }}
+                                >
+                                    <Picker.Item label="Negatif" value={false}/>
+                                    <Picker.Item label="Positif" value={true}/>
+                                </Picker>
+                            </Item>
+                        </View>
+                    }
+
                     <Text>Umur</Text>
                     <TextInput
                         style={{height: 40}}
@@ -110,23 +131,23 @@ class FormPatient extends React.Component {
                             })}
                         </Picker>
                     </Item>
-                    <Text>
-                        Waktu Pelaporan
-                    </Text>
-                    <DatePicker
-                        defaultDate={new Date(year, month, date)}
-                        minimumDate={new Date(year, 1, 1)}
-                        maximumDate={new Date(year, 12, 31)}
-                        locale={"id"}
-                        timeZoneOffsetInMinutes={undefined}
-                        modalTransparent={false}
-                        animationType={"fade"}
-                        androidMode={"default"}
-                        placeHolderText="DD MM YY"
-                        textStyle={{color: "green"}}
-                        onDateChange={(chosenDate) => this.setState({chosenDate: chosenDate})}
-                        disabled={false}
-                    />
+                    {/*<Text>*/}
+                    {/*    Waktu Pelaporan*/}
+                    {/*</Text>*/}
+                    {/*<DatePicker*/}
+                    {/*    defaultDate={new Date(year, month, date)}*/}
+                    {/*    minimumDate={new Date(year, 1, 1)}*/}
+                    {/*    maximumDate={new Date(year, 12, 31)}*/}
+                    {/*    locale={"id"}*/}
+                    {/*    timeZoneOffsetInMinutes={undefined}*/}
+                    {/*    modalTransparent={false}*/}
+                    {/*    animationType={"fade"}*/}
+                    {/*    androidMode={"default"}*/}
+                    {/*    placeHolderText="DD MM YY"*/}
+                    {/*    textStyle={{color: "green"}}*/}
+                    {/*    onDateChange={(chosenDate) => this.setState({chosenDate: chosenDate})}*/}
+                    {/*    disabled={false}*/}
+                    {/*/>*/}
                     <Button onPress={this.handleSubmit} style={styles.btnSubmit}>
                         <Text style={styles.textWhite}>Kirim</Text>
                     </Button>
