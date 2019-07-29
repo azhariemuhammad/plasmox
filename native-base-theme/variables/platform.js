@@ -133,7 +133,7 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: platform === PLATFORM.IOS ? '#007aff' : '#3F51B5',
+  brandPrimary: '#113F67',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -292,6 +292,8 @@ export default {
 
   // Text
   textColor: '#000',
+  textPrimary: '#6A6868',
+  textBlack: '#0000000',
   inverseTextColor: '#fff',
   noteFontSize: 14,
   get defaultTextColor() {
@@ -299,16 +301,16 @@ export default {
   },
 
   // Title
-  titleFontfamily: platform === PLATFORM.IOS ? 'System' : 'Roboto_medium',
+  titleFontfamily: platform === PLATFORM.IOS ? 'System' : 'Futura',
   titleFontSize: platform === PLATFORM.IOS ? 17 : 19,
   subTitleFontSize: platform === PLATFORM.IOS ? 11 : 14,
   subtitleColor: platform === PLATFORM.IOS ? '#8e8e93' : '#FFF',
-  titleFontColor: platform === PLATFORM.IOS ? '#000' : '#FFF',
+  titleFontColor: platform === PLATFORM.IOS ? '#6A6868' : '#6A6868',
 
   // Other
   borderRadiusBase: platform === PLATFORM.IOS ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-  contentPadding: 10,
+  contentPadding: 16,
   dropdownLinkColor: '#414142',
   inputLineHeight: 24,
   deviceWidth,

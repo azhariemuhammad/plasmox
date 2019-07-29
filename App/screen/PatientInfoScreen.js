@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, View} from 'react-native';
+import {Container, Content} from "native-base";
 
 import BoxHeader from "../component/BoxHeader";
 import FormPatient from "../component/FormPatient";
@@ -20,10 +20,12 @@ class PatientInfoScreen extends React.Component {
 
     render() {
         return (
-            <View>
+            <Container>
                 <BoxHeader title={'Silahkan Masukkan Data Pasien'}/>
-                <FormPatient post={(caseInfo) => this.handlePost(caseInfo)} />
-            </View>
+                <Content>
+                    <FormPatient post={(caseInfo) => this.handlePost(caseInfo)}/>
+                </Content>
+            </Container>
         )
     }
 }
