@@ -10,7 +10,7 @@ export default (variables /* : * */ = variable) => {
     fontSize: variables.titleFontSize,
     fontFamily: variables.titleFontfamily,
     color: variables.titleFontColor,
-    fontWeight: Platform.OS === PLATFORM.IOS ? '700' : undefined,
+    fontWeight: 'bold',
     textAlign: 'center',
     paddingLeft: Platform.OS === PLATFORM.IOS ? 4 : 0,
     marginLeft: Platform.OS === PLATFORM.IOS ? undefined : -3,

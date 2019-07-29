@@ -1,27 +1,21 @@
 import React, {Fragment} from 'react';
+import {StyleProvider} from "native-base";
+import getTheme from './native-base-theme/components'
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import AppNavigator from "./App/navigator/navigator";
+import platform from "./native-base-theme/variables/platform";
 
 const App = () => {
   return (
-    <Fragment>
+    <StyleProvider style={getTheme(platform)}>
       <AppNavigator/>
-    </Fragment>
+    </StyleProvider>
   );
 };
 
