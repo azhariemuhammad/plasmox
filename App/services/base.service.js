@@ -1,28 +1,38 @@
-import createRestApiClient from '../utils/createRestApiClient';
+import axios from 'axios'
+
 import {getToken} from "../utils/storeToken";
 
-const apiEndpoint = "http://127.0.0.1:8000"
-const token = getToken()
+const apiEndpoint = "http://127.0.0.1:8000/"
+
+const optionHeadersAsync = async () => {
+    let accessToken = "";
+    const credential = await getToken();
+    if (credential) {
+        accessToken = credential;
+    }
+    return {
+        baseURL: apiEndpoint,
+        headers: {
+            Authorization: `JWT ${accessToken}`,
+            "Content-Type": 'application/json',
+        }
+    }
+};
 
 export default () => {
-    const client = createRestApiClient().withConfig({baseURL: apiEndpoint});
     return {
-        login: (dataUser) => client.request({
+        login: (dataUser) => axios.request({
             method: 'POST',
-            url: '/auth/',
-            data: dataUser
+            url: 'auth/',
+            data: dataUser,
+            baseURL: apiEndpoint
         }),
-        postCaseInformation: (dataCase) => {
-          return client.request({
-              method: 'POST',
-              withCredentials: true,
-              headers: {
-                  'content-type': 'application/json',
-                  "Access-Control-Allow-Origin": "*",
-                  'Authorization': 'JWT' + token },
-              url: '/case-information-list/',
-              data: dataCase
-          })
+        postCaseInformation: async (dataCase) => {
+            return await axios.post(
+                `case-information-list/`,
+                dataCase,
+                await optionHeadersAsync()
+            )
         }
     }
 }
