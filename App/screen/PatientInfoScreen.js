@@ -6,9 +6,6 @@ import FormPatient from "../component/FormPatient";
 import {baseService} from "../services";
 
 class PatientInfoScreen extends React.Component {
-    static navigationOptions = {
-        header: null
-    };
 
     async handlePost(caseInfo) {
         await baseService().postCaseInformation(caseInfo).then(res => {
