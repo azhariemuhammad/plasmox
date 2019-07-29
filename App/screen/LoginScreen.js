@@ -7,8 +7,8 @@ import {getToken, setToken} from "../utils/storeToken";
 
 const LoginScreen = (props) => {
     const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [password, setPassword] = useState("")
+    const [phone, setPhone] = useState("082248467118")
+    const [password, setPassword] = useState("12345qwe")
 
     const handleChangePhoneOrEmail = (phone) => {
         setPhone(phone)
@@ -31,12 +31,6 @@ const LoginScreen = (props) => {
 
         }).catch(e => {
             console.log('Somenthing went wrong', e)
-        })
-    }
-
-    const handleGetToken = () => {
-        getToken().then(res => {
-            console.log(res)
         })
     }
 
@@ -65,12 +59,6 @@ const LoginScreen = (props) => {
                 style={styles.button}
             >
                 <Text> Masuk </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => handleGetToken()}
-                style={styles.button}
-            >
-                <Text> Token </Text>
             </TouchableOpacity>
         </View>
     )

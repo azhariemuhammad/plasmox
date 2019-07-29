@@ -11,11 +11,6 @@ class PatientInfoScreen extends React.Component {
     };
 
     async handlePost(caseInfo) {
-        console.log(caseInfo)
-        await baseService().login().then(res => {
-            console.log(res)
-
-        })
         await baseService().postCaseInformation(caseInfo).then(res => {
             console.log(res)
         }).catch(e => {

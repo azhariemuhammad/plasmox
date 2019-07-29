@@ -14,9 +14,19 @@ class FormPatient extends React.Component {
             disease_type: "",
             classification_case: "",
             // chosenDate: "",
-            is_pregnant: false
+            is_pregnant: false,
+            patient_contact: "",
+            case_report_type: "acd",
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleGender(value) {
+        if (value == '1') {
+            this.setState({gender: value, is_pregnant: false})
+        } else {
+            this.setState({gender: value})
+        }
     }
 
     handleSubmit() {
@@ -27,6 +37,7 @@ class FormPatient extends React.Component {
         const year = new Date().getFullYear()
         const month = new Date().getMonth()
         const date = new Date().getDate()
+        const gender = [{name: 'Laki-laki', code: '1'}, {name: 'Perempuan', code: '2'}]
         const disease_type = [
             {name: 'Falciparum', code: 'pf'},
             {name: 'Vivax', code: 'pv'},
@@ -59,12 +70,14 @@ class FormPatient extends React.Component {
                             placeholder="Laki-laki / Perempuan"
                             placeholderStyle={{color: "#bfc6ea"}}
                             placeholderIconColor="#007aff"
-                            onValueChange={value => {
-                                this.setState({gender: value})
-                            }}
+                            selectedValue={this.state.gender}
+                            onValueChange={(value) => this.handleGender(value)}
                         >
-                            <Picker.Item label="Laki-laki" value="1"/>
-                            <Picker.Item label="Perempuan" value="2"/>
+                            {gender.map((type, idx) => {
+                                return (
+                                    <Picker.Item key={idx} label={type.name} value={type.code}/>
+                                )
+                            })}
                         </Picker>
                     </Item>
                     {(this.state.gender === "2") &&
@@ -76,6 +89,7 @@ class FormPatient extends React.Component {
                                     placeholder="Hamil / Tidak Hamil"
                                     placeholderStyle={{color: "#bfc6ea"}}
                                     placeholderIconColor="#007aff"
+                                    selectedValue={this.state.is_pregnant}
                                     onValueChange={value => {
                                         this.setState({is_pregnant: value})
                                     }}
@@ -102,6 +116,7 @@ class FormPatient extends React.Component {
                             placeholder="Select your SIM"
                             placeholderStyle={{color: "#bfc6ea"}}
                             placeholderIconColor="#007aff"
+                            selectedValue={this.state.disease_type}
                             onValueChange={value => {
                                 this.setState({disease_type: value})
                             }}
@@ -120,6 +135,7 @@ class FormPatient extends React.Component {
                             placeholder="Select your SIM"
                             placeholderStyle={{color: "#bfc6ea"}}
                             placeholderIconColor="#007aff"
+                            selectedValue={this.state.classification_case}
                             onValueChange={value => {
                                 this.setState({classification_case: value})
                             }}
@@ -131,6 +147,14 @@ class FormPatient extends React.Component {
                             })}
                         </Picker>
                     </Item>
+                    <Text>Kontak Pasien</Text>
+                    <TextInput
+                        style={{height: 40}}
+                        placeholder="08xxx"
+                        value={this.state.patient_contact}
+                        onChangeText={(contact) => this.setState({patient_contact: contact})}
+                        keyboardType={'numeric'}
+                    />
                     {/*<Text>*/}
                     {/*    Waktu Pelaporan*/}
                     {/*</Text>*/}
@@ -148,6 +172,7 @@ class FormPatient extends React.Component {
                     {/*    onDateChange={(chosenDate) => this.setState({chosenDate: chosenDate})}*/}
                     {/*    disabled={false}*/}
                     {/*/>*/}
+
                     <Button onPress={this.handleSubmit} style={styles.btnSubmit}>
                         <Text style={styles.textWhite}>Kirim</Text>
                     </Button>
