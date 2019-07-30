@@ -123,7 +123,7 @@ class FormPatient extends React.Component {
                         <Item picker>
                             <Picker
                                 mode="dropdown"
-                                placeholder="Select your SIM"
+                                placeholder="Tipe Malaria"
                                 placeholderStyle={{color: "#bfc6ea"}}
                                 placeholderIconColor="#007aff"
                                 selectedValue={this.state.disease_type}
