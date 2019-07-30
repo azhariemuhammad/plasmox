@@ -27,6 +27,12 @@ export default () => {
             data: dataUser,
             baseURL: apiEndpoint
         }),
+        getCaseInformation: async () => {
+            return await axios.request(
+                `case-information-list/`,
+                await optionHeadersAsync()
+            )
+        },
         postCaseInformation: async (dataCase) => {
             return await axios.post(
                 `case-information-list/`,
