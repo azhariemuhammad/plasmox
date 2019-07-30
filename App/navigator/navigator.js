@@ -4,7 +4,8 @@ import PatientInfoScreen from "../screen/PatientInfoScreen";
 import LoginScreen from "../screen/LoginScreen";
 
 const AppStack = createStackNavigator({
-    PatienInfo: {screen: PatientInfoScreen}
+    HomeScreen: {screen: HomeScreen},
+    PatienInfoScreen: {screen: PatientInfoScreen},
 });
 
 const AuthStack = createStackNavigator({

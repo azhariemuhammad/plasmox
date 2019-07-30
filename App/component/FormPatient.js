@@ -189,10 +189,11 @@ class FormPatient extends React.Component {
                     {/*    onDateChange={(chosenDate) => this.setState({chosenDate: chosenDate})}*/}
                     {/*    disabled={false}*/}
                     {/*/>*/}
-
-                    <Button primary style={styles.btnSubmit} onPress={this.handleSubmit}>
-                        <Text style={styles.textWhite}>Kirim</Text>
-                    </Button>
+                    <View style={styles.wrapperBtn}>
+                        <Button primary style={styles.btnSubmit} onPress={this.handleSubmit}>
+                            <Text style={styles.textWhite}>Kirim</Text>
+                        </Button>
+                    </View>
                 </Form>
             </View>
         )
@@ -218,6 +219,9 @@ const styles = StyleSheet.create({
     inputHeight: {
         height: 'auto',
         marginTop: 16
+    },
+    wrapperBtn: {
+        marginTop: 20
     }
 })
 
