@@ -1,7 +1,7 @@
 import React from 'react'
 import { withNavigation } from 'react-navigation';
-import {CardItem, Body, Card, Text} from "native-base";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {CardItem, Body, Title, Card, Text} from "native-base";
+import {StyleSheet, TouchableOpacity} from "react-native";
 
 const CardOption = (props) => {
 
@@ -12,7 +12,7 @@ const CardOption = (props) => {
         <TouchableOpacity onPress={() => handleGoTo()}>
             <Card>
                 <CardItem header>
-                    <Text>{props.title}</Text>
+                    <Title>{props.title}</Title>
                 </CardItem>
                 <CardItem>
                     <Text>
@@ -23,8 +23,5 @@ const CardOption = (props) => {
         </TouchableOpacity>
     )
 }
-
-
-const styles = StyleSheet.create({});
 
 export default  withNavigation(CardOption)
