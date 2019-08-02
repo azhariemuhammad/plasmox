@@ -56,7 +56,7 @@ const LoginScreen = (props) => {
                     <Text>Password</Text>
                     <TextInput
                         underlineColorAndroid="transparent"
-                        placeholder="Password"
+                        placeholder="Sandi"
                         placeholderTextColor="#bfc6ea"
                         autoCapitalize="none"
                         secureTextEntry={true}

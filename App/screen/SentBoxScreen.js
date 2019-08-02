@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Content} from "native-base";
+import {Container, Content, H3} from "native-base";
 
 import ListCase from "../component/ListCase";
 import {baseService} from "../services";
+import BoxHeader from "../component/BoxHeader";
 
 const SentBoxScreen = () => {
 
@@ -10,17 +11,23 @@ const SentBoxScreen = () => {
 
     useEffect(() => {
         async function getCaseInfo() {
-            const result = await baseService().getCaseInformation()
-            setCases(result.data)
+            await baseService().getAllCaseInformation().then(result => {
+                setCases(result.data)
+            }).catch(e => {
+                setCases([])
+            })
+
         }
+
         getCaseInfo();
     }, []);
 
     return (
         <Container>
-            <ListCase data={cases} />
+            <BoxHeader title={'Pustu Desa A'}/>
+            <H3 style={{marginTop: 16, marginBottom: 16, padding:8}}>Laporan Terkirim</H3>
+            <ListCase data={cases}/>
         </Container>
     )
 }
-
 export default SentBoxScreen

@@ -11,6 +11,8 @@ class PatientInfoScreen extends React.Component {
     async handlePost(caseInfo) {
         await baseService().postCaseInformation(caseInfo).then(res => {
             Toaster({err: false, text: 'Sukses mengirim laporan'})
+            const id = res.headers.location
+            this.props.navigation.navigate('DetailCase', {caseId: id})
         }).catch(e => {
             console.log(e)
             Toaster({err: true, text: 'Gagal mengirim laporan'})
