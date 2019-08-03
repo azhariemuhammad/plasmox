@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, TextInput, Text, StyleSheet} from 'react-native'
-import {Container, Content, DatePicker, Form, Item, Picker, Button} from 'native-base';
+import { Form, Item, Picker, Button} from 'native-base';
 
 
 class FormPatient extends React.Component {
@@ -31,6 +31,7 @@ class FormPatient extends React.Component {
 
     handleSubmit() {
         this.props.post(this.state)
+        this.setState({name: '', gender: '', address: '', is_pregnant: false, patient_contact: ''})
     }
 
     render() {

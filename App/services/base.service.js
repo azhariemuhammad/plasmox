@@ -21,18 +21,37 @@ const optionHeadersAsync = async () => {
 
 export default () => {
     return {
-        login: (dataUser) => axios.request({
-            method: 'POST',
-            url: 'auth/',
-            data: dataUser,
-            baseURL: apiEndpoint
-        }),
+        login: async (dataUser) => {
+            return await axios.post(
+                'auth/',
+                dataUser,
+                await optionHeadersAsync()
+            )
+        },
+        getAllCaseInformation: async () => {
+            return await axios.request(
+                `case-information-list/`,
+                await optionHeadersAsync()
+            )
+        },
+        getCaseInformation: async (id) => {
+            return await axios.request(
+                `case-information-list/${id}`,
+                await optionHeadersAsync()
+            )
+        },
         postCaseInformation: async (dataCase) => {
             return await axios.post(
                 `case-information-list/`,
                 dataCase,
                 await optionHeadersAsync()
             )
-        }
+        },
+        getUserDetail: async () => {
+            return await axios.request(
+                `user-detail/`,
+                await optionHeadersAsync()
+            )
+        },
     }
 }

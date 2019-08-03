@@ -6,7 +6,7 @@ export default (variables /* : * */ = variable) => {
   const textTheme = {
     fontSize: variables.DefaultFontSize,
     fontFamily: variables.fontFamily,
-    color: variables.textColor,
+    color: variables.textPrimary,
     '.note': {
       color: '#a7a7a7',
       fontSize: variables.noteFontSize
