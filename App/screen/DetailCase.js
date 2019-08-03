@@ -45,7 +45,7 @@ const DetailCase = (props) => {
         return (
             <View style={styles.inputHeight} key={idx}>
                 <Text style={styles.textSecondary}>{translateText(title)}</Text>
-                <Text>{name}</Text>
+                <Text style={styles.textBody}>{name}</Text>
             </View>
         )
     }
@@ -53,15 +53,16 @@ const DetailCase = (props) => {
     return (
         <Container>
             <Content>
-                { (Object.keys(caseInfo).length > 1) &&
-                    Object.keys(caseInfo).map((item, idx) => {
-                        return (
-                            renderItem(item, caseInfo[item],idx)
-                        )
-                    })
+                {(Object.keys(caseInfo).length > 1) &&
+                Object.keys(caseInfo).map((item, idx) => {
+                    return (
+                        renderItem(item, caseInfo[item], idx)
+                    )
+                })
                 }
             </Content>
         </Container>
+
     )
 }
 
@@ -72,12 +73,13 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     inputHeight: {
-        height: 'auto',
-        marginTop: 16
+        height: 70,
+    },
+    textBody: {
+        padding: 8
     },
     wrapperDetail: {
-        flex: 1,
-        marginBottom: 30
+        flex: 1
     }
 })
 
