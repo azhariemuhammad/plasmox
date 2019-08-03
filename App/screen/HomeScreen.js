@@ -19,7 +19,6 @@ class HomeScreen extends React.Component {
 
     async componentDidMount() {
         await baseService().getUserDetail().then(res => {
-            console.log(res.data)
             if (res.data.health_facility_name) {
                 const {health_facility_name, facility_level} = res.data
                 this.setState({facilityName: health_facility_name, facilityLevel: facility_level})
@@ -34,8 +33,8 @@ class HomeScreen extends React.Component {
             <Container>
                 <BoxHeader title={this.state.facilityName}/>
                 <Content>
-                    <CardOption title={"ACD"} body={"Active Case Detection"}/>
-                    <CardOption title={"PCD"} body={"Passive Case Detection"}/>
+                    <CardOption caseReportType={"acd"} title={"ACD"} body={"Active Case Detection"}/>
+                    <CardOption caseReportType={"pcd"} title={"PCD"} body={"Passive Case Detection"}/>
                     {(this.state.facilityLevel === '1') ?
                         <Text style={styles.btnLink} onPress={
                             () => this.props.navigation.navigate('SentBoxScreen')
