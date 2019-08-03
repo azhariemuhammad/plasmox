@@ -20,11 +20,14 @@ class PatientInfoScreen extends React.Component {
     }
 
     render() {
+        const {navigation} = this.props;
+        const caseReportType = navigation.getParam('caseReportType');
+
         return (
             <Container>
                 <BoxHeader title={'Silahkan Masukkan Data Pasien'}/>
                 <Content>
-                    <FormPatient post={(caseInfo) => this.handlePost(caseInfo)}/>
+                    <FormPatient caseReportType={caseReportType} post={(caseInfo) => this.handlePost(caseInfo)}/>
                 </Content>
             </Container>
         )

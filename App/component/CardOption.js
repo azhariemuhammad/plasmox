@@ -6,7 +6,7 @@ import {StyleSheet, TouchableOpacity} from "react-native";
 const CardOption = (props) => {
 
     const handleGoTo  = () => {
-        props.navigation.navigate('PatientInfoScreen')
+        props.navigation.navigate('PatientInfoScreen', {caseReportType: props.caseReportType})
     }
     return (
         <TouchableOpacity onPress={() => handleGoTo()}>

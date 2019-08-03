@@ -8,15 +8,15 @@ class FormPatient extends React.Component {
         super(props)
         this.state = {
             name: "",
-            gender: "",
+            gender: "1",
             age: 12,
             address: "",
-            disease_type: "",
-            classification_case: "",
+            disease_type: "pf",
+            classification_case: "imp",
             // chosenDate: "",
             is_pregnant: false,
             patient_contact: "",
-            case_report_type: "acd",
+            case_report_type: this.props.caseReportType,
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -31,7 +31,7 @@ class FormPatient extends React.Component {
 
     handleSubmit() {
         this.props.post(this.state)
-        this.setState({name: '', gender: '', address: '', is_pregnant: false, patient_contact: ''})
+        this.setState({name: '', gender: '1', address: '', is_pregnant: false, patient_contact: ''})
     }
 
     render() {
@@ -146,7 +146,6 @@ class FormPatient extends React.Component {
                         <Item picker>
                             <Picker
                                 mode="dropdown"
-                                placeholder="Select your SIM"
                                 placeholderStyle={{color: "#bfc6ea"}}
                                 placeholderIconColor="#007aff"
                                 selectedValue={this.state.classification_case}
@@ -173,23 +172,6 @@ class FormPatient extends React.Component {
                             keyboardType={'numeric'}
                         />
                     </View>
-                    {/*<Text>*/}
-                    {/*    Waktu Pelaporan*/}
-                    {/*</Text>*/}
-                    {/*<DatePicker*/}
-                    {/*    defaultDate={new Date(year, month, date)}*/}
-                    {/*    minimumDate={new Date(year, 1, 1)}*/}
-                    {/*    maximumDate={new Date(year, 12, 31)}*/}
-                    {/*    locale={"id"}*/}
-                    {/*    timeZoneOffsetInMinutes={undefined}*/}
-                    {/*    modalTransparent={false}*/}
-                    {/*    animationType={"fade"}*/}
-                    {/*    androidMode={"default"}*/}
-                    {/*    placeHolderText="DD MM YY"*/}
-                    {/*    textStyle={{color: "green"}}*/}
-                    {/*    onDateChange={(chosenDate) => this.setState({chosenDate: chosenDate})}*/}
-                    {/*    disabled={false}*/}
-                    {/*/>*/}
                     <View style={styles.wrapperBtn}>
                         <Button primary style={styles.btnSubmit} onPress={this.handleSubmit}>
                             <Text style={styles.textWhite}>Kirim</Text>
