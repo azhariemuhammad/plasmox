@@ -24,42 +24,56 @@ const DetailCase = (props) => {
         getCaseInfo();
     }, []);
 
-    const infoTypes = {
-        address: "Alamat",
-        age: "Umur",
-        caseReportType: "Tipe Pelaporan",
-        classificationCase: "Klasifikasi",
-        diseaseType: "Tipe Malaria",
-        gender: "Jenis Kelamin",
-        isPregnant: 'Sedang Hamil',
-        name: "Nama",
-        patientContact: "Kontak Pasien",
-        reporter: "Pengirim Laporan"
-    }
-
-    const translateText = (txt) => {
-        return infoTypes[txt]
-    }
-
-    const renderItem = (title, name, idx) => {
-        return (
-            <View style={styles.inputHeight} key={idx}>
-                <Text style={styles.textSecondary}>{translateText(title)}</Text>
-                <Text style={styles.textBody}>{name}</Text>
-            </View>
-        )
-    }
-
+    const {
+        name, address,
+        gender, isPregnant,
+        age, diseaseType, 
+        classificationCase,
+        patientContact,
+        reporter
+    } = caseInfo
     return (
         <Container>
             <Content>
-                {(Object.keys(caseInfo).length > 1) &&
-                Object.keys(caseInfo).map((item, idx) => {
-                    return (
-                        renderItem(item, caseInfo[item], idx)
-                    )
-                })
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Nama</Text>
+                    <Text style={styles.textBody}>{name}</Text>
+                </View>
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Alamat</Text>
+                    <Text style={styles.textBody}>{address}</Text>
+                </View>
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Jenis Kelamin</Text>
+                    <Text style={styles.textBody}>{gender}</Text>
+                </View>
+                {
+                    (gender === 'Women' && age > 17 ) &&
+                    <View style={styles.inputHeight}>
+                        <Text style={styles.textSecondary}>Sedang Hamil</Text>
+                        <Text style={styles.textBody}>{(isPregnant) ? 'Ya' : 'Tidak'}</Text>
+                    </View>
                 }
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Umur</Text>
+                    <Text style={styles.textBody}>{age}</Text>
+                </View>
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Tipe Malaria</Text>
+                    <Text style={styles.textBody}>{diseaseType}</Text>
+                </View>
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Klasifikasi Kasus</Text>
+                    <Text style={styles.textBody}>{classificationCase}</Text>
+                </View>
+                <View style={styles.inputHeight}>
+                    <Text style={styles.textSecondary}>Kontak Pasien</Text>
+                    <Text style={styles.textBody}>{patientContact}</Text>
+                </View>
+                <View style={{height: 70, marginBottom: 20}}>
+                    <Text style={styles.textSecondary}>Pelapor</Text>
+                    <Text style={styles.textBody}>{reporter}</Text>
+                </View>
             </Content>
         </Container>
 
