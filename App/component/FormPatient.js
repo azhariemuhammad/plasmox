@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, TextInput, Text, StyleSheet} from 'react-native'
-import { Form, Item, Picker, Button} from 'native-base';
+import {Form, Item, Picker, Button} from 'native-base';
+import Validators from "../services/validateFormPatient.service";
 
 
 class FormPatient extends React.Component {
@@ -9,7 +10,7 @@ class FormPatient extends React.Component {
         this.state = {
             name: "",
             gender: "1",
-            age: 12,
+            age: '',
             address: "",
             disease_type: "pf",
             classification_case: "imp",
@@ -17,6 +18,13 @@ class FormPatient extends React.Component {
             is_pregnant: false,
             patient_contact: "",
             case_report_type: this.props.caseReportType,
+            errors: {
+                name: false,
+                age: false,
+                address: false,
+                patient_contact: false,
+            },
+            valid: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -29,15 +37,38 @@ class FormPatient extends React.Component {
         }
     }
 
+    handleOnChange(val, stateName) {
+        this.setState({[stateName]: val}, () => {
+            this.handleValidation(stateName)
+        })
+    }
+    handleValidation(stateName) {
+        let newErrors = this.state.errors
+        if (Validators.checkNullChars(this.state[stateName])) {
+            newErrors[stateName] = true
+        }
+        this.setState({errors: newErrors})
+    }
+
+
     handleSubmit() {
-        this.props.post(this.state)
-        this.setState({name: '', gender: '1', address: '', is_pregnant: false, patient_contact: ''})
+        const {errors} = this.state
+        Object.keys(errors).map(item => {
+            if (!errors[item]) {
+                this.handleValidation(item)
+            }
+        })
+        console.log(this.state.valid)
+        if (this.state.valid) {
+            console.log('not valid')
+        } else {
+            console.log('valid')
+            // this.props.post(this.state)
+            // this.setState({name: '', gender: '1', address: '', is_pregnant: false, patient_contact: ''})
+        }
     }
 
     render() {
-        const year = new Date().getFullYear()
-        const month = new Date().getMonth()
-        const date = new Date().getDate()
         const gender = [{name: 'Laki-laki', code: '1'}, {name: 'Perempuan', code: '2'}]
         const disease_type = [
             {name: 'Falciparum', code: 'pf'},
@@ -45,27 +76,35 @@ class FormPatient extends React.Component {
             {name: 'Malarie', code: 'pm'},
             {name: 'Ovale', code: 'po'}
         ]
-        const classification_case = [{name: 'Imported', code: 'imp'}, {name: 'Indigenous', code: 'ind'}]
 
+        const classification_case = [{name: 'Imported', code: 'imp'}, {name: 'Indigenous', code: 'ind'}]
+        const {errors} = this.state
         return (
             <View style={{flex: 1, marginBottom: 50}}>
                 <Form>
                     <View style={styles.inputHeight}>
-                        <Text style={styles.textSecondary}>Nama Pasien</Text>
+                        <View style={styles.flexRow}>
+                            <Text style={styles.textSecondary}>Nama Pasien</Text>
+                            {(errors.name) && <Text style={styles.textWarning}>* Wajib diisi</Text>}
+                        </View>
                         <TextInput
                             style={{height: 40}}
                             placeholder="Jhon Doe"
                             value={this.state.name}
-                            onChangeText={(name) => this.setState({name: name})}
+                            onChangeText={(name) => this.handleOnChange(name, 'name')}
                         />
+
                     </View>
                     <View style={styles.inputHeight}>
-                        <Text style={styles.textSecondary}>Alamat</Text>
+                        <View style={styles.flexRow}>
+                            <Text style={styles.textSecondary}>Alamat</Text>
+                            {(errors.address) && <Text style={styles.textWarning}>* Wajib diisi</Text>}
+                        </View>
                         <TextInput
                             style={{height: 40}}
-                            placeholder="Jhon Doe"
+                            placeholder="Jalan Ciputat Raya"
                             value={this.state.address}
-                            onChangeText={(address) => this.setState({address: address})}
+                            onChangeText={(address) => this.handleOnChange(address, 'address')}
                         />
                     </View>
                     <View style={styles.inputHeight}>
@@ -109,12 +148,15 @@ class FormPatient extends React.Component {
                     }
 
                     <View style={styles.inputHeight}>
-                        <Text style={styles.textSecondary}>Umur</Text>
+                        <View style={styles.flexRow}>
+                            <Text style={styles.textSecondary}>Umur</Text>
+                            {(errors.age) && <Text style={styles.textWarning}>* Wajib diisi</Text>}
+                        </View>
                         <TextInput
                             style={{height: 40}}
                             placeholder="Tahun"
                             value={this.state.age}
-                            onChangeText={(age) => this.setState({age: age})}
+                            onChangeText={(age) => this.handleOnChange(age, 'age')}
                             keyboardType={'numeric'}
                         />
                     </View>
@@ -163,17 +205,24 @@ class FormPatient extends React.Component {
                     </View>
 
                     <View style={styles.inputHeight}>
-                        <Text style={styles.textSecondary}>Kontak Pasien</Text>
+                        <View style={styles.flexRow}>
+                            <Text style={styles.textSecondary}>Kontak Pasien</Text>
+                            {(errors.patient_contact) && <Text style={styles.textWarning}>* Wajib diisi</Text>}
+                        </View>
                         <TextInput
                             style={{height: 40}}
                             placeholder="08xxx"
                             value={this.state.patient_contact}
-                            onChangeText={(contact) => this.setState({patient_contact: contact})}
+                            onChangeText={(contact) => this.handleOnChange(contact, 'patient_contact')}
                             keyboardType={'numeric'}
                         />
                     </View>
                     <View style={styles.wrapperBtn}>
-                        <Button primary style={styles.btnSubmit} onPress={this.handleSubmit}>
+                        <Button
+                            primary style={styles.btnSubmit}
+                            onPress={this.handleSubmit}
+                            disabled={(errors.name === false && errors.age === false && errors.address === false && errors.patient_contact === false)}
+                        >
                             <Text style={styles.textWhite}>Kirim</Text>
                         </Button>
                     </View>
@@ -205,6 +254,15 @@ const styles = StyleSheet.create({
     },
     wrapperBtn: {
         marginTop: 20
+    },
+    textWarning: {
+        color: 'red',
+        fontSize: 14,
+        paddingLeft: 8
+    },
+    flexRow: {
+      flex: 1,
+      flexDirection: 'row'
     }
 })
 
