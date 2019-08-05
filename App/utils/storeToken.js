@@ -18,3 +18,11 @@ export const getToken = async () => {
         console.log('something when wrong', e)
     }
 }
+
+export const removeToken = async () => {
+    try {
+        await AsyncStorage.removeItem('token')
+    } catch (e) {
+        console.log('something when wrong', e)
+    }
+}

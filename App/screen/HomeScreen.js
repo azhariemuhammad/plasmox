@@ -1,16 +1,28 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
-import {Content, Container, Card, CardItem, Body, Text, Button} from "native-base";
+import {Content, Container, Text, Icon, Button} from "native-base";
+
 import BoxHeader from "../component/BoxHeader";
 import CardOption from "../component/CardOption";
 import SentBoxScreen from "./SentBoxScreen";
 import {baseService} from "../services";
+import {setUserDetail} from "../utils/storeUserDetail";
+import AlertLogout from "../component/AlertLogout";
 
 
 class HomeScreen extends React.Component {
-    static navigationOptions = {
-        header: null
-    };
+    static navigationOptions = ({navigation}) => ({
+        headerRight: (
+            <Button style={{backgroundColor: '#ffff', shadowOffset: { height: 0, width: 0 },
+                shadowOpacity: 0,
+                elevation:0}}
+                onPress={() => AlertLogout(navigation)} iconRight
+            >
+                <Text style={{color: 'black'}}>Keluar</Text>
+                <Icon style={{color: 'black'}} name='log-out' />
+            </Button>
+        )
+    });
 
     state={
         facilityName: '',
@@ -21,6 +33,7 @@ class HomeScreen extends React.Component {
         await baseService().getUserDetail().then(res => {
             if (res.data.health_facility_name) {
                 const {health_facility_name, facility_level} = res.data
+                setUserDetail(res.data)
                 this.setState({facilityName: health_facility_name, facilityLevel: facility_level})
             }
         }).catch(e => {
