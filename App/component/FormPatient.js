@@ -23,8 +23,7 @@ class FormPatient extends React.Component {
                 age: false,
                 address: false,
                 patient_contact: false,
-            },
-            valid: false
+            }
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -44,12 +43,14 @@ class FormPatient extends React.Component {
     }
     handleValidation(stateName) {
         let newErrors = this.state.errors
-        if (Validators.checkNullChars(this.state[stateName])) {
-            newErrors[stateName] = true
-        }
+        newErrors[stateName] = Validators.checkNullChars(this.state[stateName])
         this.setState({errors: newErrors})
     }
 
+    isValidForm() {
+        const {name, age, address, patient_contact } = this.state.errors
+        return (name === false) && (age === false) && (address === false) && (patient_contact === false)
+    }
 
     handleSubmit() {
         const {errors} = this.state
@@ -58,13 +59,11 @@ class FormPatient extends React.Component {
                 this.handleValidation(item)
             }
         })
-        console.log(this.state.valid)
-        if (this.state.valid) {
-            console.log('not valid')
+        if (this.isValidForm()) {
+            this.props.post(this.state)
+            this.setState({name: '', gender: '1', address: '', is_pregnant: false, patient_contact: ''})
         } else {
-            console.log('valid')
-            // this.props.post(this.state)
-            // this.setState({name: '', gender: '1', address: '', is_pregnant: false, patient_contact: ''})
+            console.log('not valid')
         }
     }
 
@@ -221,7 +220,6 @@ class FormPatient extends React.Component {
                         <Button
                             primary style={styles.btnSubmit}
                             onPress={this.handleSubmit}
-                            disabled={(errors.name === false && errors.age === false && errors.address === false && errors.patient_contact === false)}
                         >
                             <Text style={styles.textWhite}>Kirim</Text>
                         </Button>
