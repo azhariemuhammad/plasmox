@@ -1,17 +1,94 @@
-import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'react-navigation';
+import React from 'react'
+import {
+    createStackNavigator,
+    createAppContainer,
+    createBottomTabNavigator,
+    createSwitchNavigator
+} from 'react-navigation';
+import Icon from 'react-native-ionicons'
 
 import HomeScreen from "../screen/HomeScreen";
 import PatientInfoScreen from "../screen/PatientInfoScreen";
 import LoginScreen from "../screen/LoginScreen";
 import DetailCase from "../screen/DetailCase";
-import SentBoxScreen from "../screen/SentBoxScreen";
+import SentboxScreen from "../screen/SentboxScreen";
+import InboxScreen from "../screen/InboxScreen";
+import {Button, Text} from "native-base";
+import AlertLogout from "../component/AlertLogout";
 
-const AppStack = createStackNavigator({
-    HomeScreen: {screen: HomeScreen},
-    PatientInfoScreen: {screen: PatientInfoScreen},
-    SentBoxScreen: {screen: SentBoxScreen},
+
+const headerRight = (navigation) => (
+    <Button style={{
+        backgroundColor: '#ffff', shadowOffset: {height: 0, width: 0},
+        shadowOpacity: 0,
+        elevation: 0
+    }}
+            onPress={() => AlertLogout(navigation)} iconRight
+    >
+        <Text style={{color: 'black'}}>Keluar</Text>
+        <Icon style={{color: 'black', marginRight: 8}} android='md-log-out'/>
+    </Button>
+)
+
+const Sentbox = createStackNavigator({
+    SentBoxScreen: {
+        screen: SentboxScreen,
+        navigationOptions: ({navigation}) => ({
+            headerRight: headerRight(navigation)
+        })
+    },
     DetailCase: {screen: DetailCase},
 });
+
+const Inbox = createStackNavigator({
+    Inbox: {
+        screen: InboxScreen,
+        navigationOptions: ({navigation}) => ({
+            headerRight: headerRight(navigation)
+        })},
+    DetailCase: {screen: DetailCase},
+});
+
+
+const Home = createStackNavigator({
+    HomeScreen: {
+        screen: HomeScreen,
+        navigationOptions: ({navigation}) => ({
+            headerRight: headerRight(navigation)
+        })
+    },
+    PatientInfoScreen: {screen: PatientInfoScreen},
+    DetailCase: {screen: DetailCase},
+});
+
+const TabNavigator = createBottomTabNavigator({
+        Inbox: Inbox,
+        Home: Home,
+        Sentbox: Sentbox,
+    },
+
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            tabBarIcon: ({focused, horizontal, tintColor}) => {
+                const {routeName} = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = `md-add-circle`;
+                } else if (routeName === 'Sentbox') {
+                    iconName = `md-mail`;
+                } else if (routeName === 'Inbox') {
+                    iconName = `md-mail-open`;
+                }
+                return <Icon android={iconName} color={focused ? '#121b74' : '#226597'}/>;
+            },
+        }),
+        tabBarOptions: {
+            showLabel: false
+        },
+        initialRouteName: 'Home',
+    }
+);
+
 
 const AuthStack = createStackNavigator({
     loginScreen: {screen: LoginScreen, navigationOptions: {header: null}}
@@ -19,7 +96,7 @@ const AuthStack = createStackNavigator({
 
 const AppNavigator = createAppContainer(
     createSwitchNavigator(
-        {App: AppStack, Auth: AuthStack},
+        {App: TabNavigator, Auth: AuthStack},
         {initialRouteName: 'Auth'}
     )
 );
