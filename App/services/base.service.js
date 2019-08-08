@@ -53,5 +53,17 @@ export default () => {
                 await optionHeadersAsync()
             )
         },
+        getInbox: async () => {
+            return await axios.request(
+                `received-case-list/`,
+                await optionHeadersAsync()
+            )
+        },
+        getSentbox: async () => {
+            return await axios.request(
+                `sent-case-list/`,
+                await optionHeadersAsync()
+            )
+        }
     }
 }

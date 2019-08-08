@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Content, H3} from "native-base";
+import {Container, Text, Content, H3} from "native-base";
 
 import ListCase from "../component/ListCase";
 import {baseService} from "../services";
 import BoxHeader from "../component/BoxHeader";
 import {getUserDetail} from "../utils/storeUserDetail";
 
-const SentBoxScreen = () => {
+const InboxScreen = () => {
 
     const [cases, setCases] = useState([]);
     const [userDetail, setUserDetail] = useState({
@@ -20,8 +20,9 @@ const SentBoxScreen = () => {
 
     useEffect(() => {
         async function getCaseInfo() {
-            await baseService().getAllCaseInformation().then(result => {
+            await baseService().getInbox().then(result => {
                 setCases(result.data)
+                console.log(result.data)
             }).catch(e => {
                 setCases({})
             })
@@ -46,9 +47,17 @@ const SentBoxScreen = () => {
     return (
         <Container>
             <BoxHeader title={userDetail.health_facility_name}/>
-            <H3 style={{marginTop: 16, marginBottom: 16, padding:8}}>Laporan Terkirim</H3>
-            <ListCase data={cases}/>
+            <H3 style={{marginTop: 16, marginBottom: 16, padding:8}}>Laporan Diterima</H3>
+            <Content>
+                {
+                    (cases.length > 1)
+                        ?
+                        <ListCase data={cases}/>
+                        :
+                        <Text>Belum ada laporan...</Text>
+                }
+            </Content>
         </Container>
     )
 }
-export default SentBoxScreen
+export default InboxScreen

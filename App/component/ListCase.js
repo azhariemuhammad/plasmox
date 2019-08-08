@@ -23,7 +23,7 @@ const ListCase = (props) => {
                     <Text style={styles.title}>{item.caseReportType.toUpperCase()}</Text>
                     <Text>{formatDate(item.created)}</Text>
                 </View>
-                <Text>Pasien {item.name}, {item.patientContact} </Text>
+                <Text>Pasien {item.name}, {item.patientContact}... </Text>
             </Content>
         </TouchableOpacity>
     );
