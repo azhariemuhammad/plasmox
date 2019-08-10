@@ -50,7 +50,7 @@ const LoginScreen = (props) => {
                     <Text>Telepon</Text>
                     <TextInput
                         underlineColorAndroid="transparent"
-                        placeholder="Email/Telepon"
+                        placeholder="08XXXXX"
                         placeholderTextColor="#bfc6ea"
                         autoCapitalize="none"
                         value={phone || ""}
@@ -59,7 +59,7 @@ const LoginScreen = (props) => {
                     />
                 </View>
                 <View style={styles.inputWrapper}>
-                    <Text>Password</Text>
+                    <Text>Sandi</Text>
                     <TextInput
                         underlineColorAndroid="transparent"
                         placeholder="Sandi"
@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     },
     inputWrapper: {
         height: 70,
-        marginTop: 8
+        marginTop: 8,
+        marginBottom: 16
     },
     inputText: {
         backgroundColor: '#ECF0F3',
