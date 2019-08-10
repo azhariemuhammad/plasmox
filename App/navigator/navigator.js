@@ -15,6 +15,7 @@ import SentboxScreen from "../screen/SentboxScreen";
 import InboxScreen from "../screen/InboxScreen";
 import {Button, Text} from "native-base";
 import AlertLogout from "../component/AlertLogout";
+import AuthLoadingScreen from "../screen/AuthLoadingScreen";
 
 
 const headerRight = (navigation) => (
@@ -94,10 +95,14 @@ const AuthStack = createStackNavigator({
     loginScreen: {screen: LoginScreen, navigationOptions: {header: null}}
 })
 
+const AuthLoading = createStackNavigator({
+    authLoadingScreen: {screen: AuthLoadingScreen, navigationOptions: {header: null}}
+})
+
 const AppNavigator = createAppContainer(
     createSwitchNavigator(
-        {App: TabNavigator, Auth: AuthStack},
-        {initialRouteName: 'Auth'}
+        {App: TabNavigator, Auth: AuthStack, Loading: AuthLoading },
+        {initialRouteName: 'Loading'}
     )
 );
 

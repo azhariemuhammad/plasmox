@@ -7,8 +7,8 @@ import {setToken} from "../utils/storeToken";
 
 const LoginScreen = (props) => {
     const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("082248467118")
-    const [password, setPassword] = useState("12345qwe")
+    const [phone, setPhone] = useState("")
+    const [password, setPassword] = useState("")
 
     const handleChangePhoneOrEmail = (phone) => {
         setPhone(phone)
