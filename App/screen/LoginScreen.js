@@ -1,14 +1,17 @@
 import React, {useState} from 'react'
-import {View, TextInput, StyleSheet} from 'react-native'
+import {View, TextInput, StyleSheet, ActivityIndicator} from 'react-native'
 import {Content, Button, Text, Container} from "native-base";
+
 import {baseService} from "../services";
 import {setToken} from "../utils/storeToken";
+import Toaster from "../component/Toaster";
 
 
 const LoginScreen = (props) => {
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleChangePhoneOrEmail = (phone) => {
         setPhone(phone)
@@ -25,13 +28,16 @@ const LoginScreen = (props) => {
             phone: phone,
             password: password
         }
-        // props.navigation.navigate('App');
+        setIsLoading(true)
+
         await baseService().login(dataUser).then(res => {
             setToken(res.data.token)
+            setIsLoading(false)
             props.navigation.navigate(res.data.token ? 'App' : 'Auth');
-
         }).catch(e => {
             console.log('Somenthing went wrong', e)
+            Toaster({err: true, text: 'Pastikan telepon atau sandi anda benar'})
+            setIsLoading(false)
         })
     }
 
@@ -71,6 +77,9 @@ const LoginScreen = (props) => {
                     style={styles.btnSubmit}
                 >
                     <Text> Masuk </Text>
+                    {(isLoading) &&
+                        <ActivityIndicator />
+                    }
                 </Button>
                 </View>
             </Content>

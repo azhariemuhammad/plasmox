@@ -1,6 +1,7 @@
 import React from 'react'
-import {View, TextInput, Text, StyleSheet} from 'react-native'
+import {View, TextInput, Text, StyleSheet, ActivityIndicator} from 'react-native'
 import {Form, Item, Picker, Button} from 'native-base';
+
 import Validators from "../services/validateFormPatient.service";
 
 
@@ -222,6 +223,9 @@ class FormPatient extends React.Component {
                             onPress={this.handleSubmit}
                         >
                             <Text style={styles.textWhite}>Kirim</Text>
+                            {(this.props.isLoading) &&
+                                <ActivityIndicator style={{marginLeft: 16}} />
+                            }
                         </Button>
                     </View>
                 </Form>

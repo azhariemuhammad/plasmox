@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {Container, Text, Content, H3} from "native-base";
+import {ActivityIndicator} from "react-native";
 
 import ListCase from "../component/ListCase";
 import {baseService} from "../services";
 import BoxHeader from "../component/BoxHeader";
 import {getUserDetail} from "../utils/storeUserDetail";
+
 
 const InboxScreen = () => {
 
@@ -17,18 +19,20 @@ const InboxScreen = () => {
         last_name: "",
         phone_number: ""
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         async function getCaseInfo() {
             await baseService().getInbox().then(result => {
+                setIsLoading(false)
                 setCases(result.data)
-                console.log(result.data)
             }).catch(e => {
                 setCases({})
+                setIsLoading(false)
             })
 
         }
-
+        setIsLoading(true)
         getCaseInfo();
     }, []);
 
@@ -49,12 +53,16 @@ const InboxScreen = () => {
             <BoxHeader title={userDetail.health_facility_name}/>
             <H3 style={{marginTop: 16, marginBottom: 16, padding:8}}>Laporan Diterima</H3>
             <Content>
-                {
+                {(isLoading)
+                    ?
+                    <ActivityIndicator />
+                    :
                     (cases.length > 1)
                         ?
                         <ListCase data={cases}/>
                         :
                         <Text>Belum ada laporan...</Text>
+
                 }
             </Content>
         </Container>
