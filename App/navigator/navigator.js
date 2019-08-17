@@ -80,12 +80,12 @@ const TabNavigator = createBottomTabNavigator({
                 } else if (routeName === 'Inbox') {
                     iconName = `md-mail-open`;
                 }
-                return <Icon android={iconName} color={focused ? '#121b74' : '#226597'}/>;
-            },
-            tabBarOptions: {
-                showLabel: true
+                return <Icon android={iconName} color={focused ? '#226597' : '#d1d1d1'}/>;
             },
         }),
+        tabBarOptions: {
+            showLabel: false
+        },
         initialRouteName: 'Home',
     }
 );
