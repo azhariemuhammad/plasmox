@@ -82,10 +82,10 @@ const TabNavigator = createBottomTabNavigator({
                 }
                 return <Icon android={iconName} color={focused ? '#121b74' : '#226597'}/>;
             },
+            tabBarOptions: {
+                showLabel: true
+            },
         }),
-        tabBarOptions: {
-            showLabel: false
-        },
         initialRouteName: 'Home',
     }
 );
