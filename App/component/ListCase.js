@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#226597',
-        fontSize: 16,
         paddingBottom: 8
     },
     flexBetween: {
