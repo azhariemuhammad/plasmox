@@ -75,7 +75,7 @@ const InboxScreen = () => {
                     :
                     (cases.length > 1)
                         ?
-                        <ListCase data={cases}/>
+                        <ListCase data={cases} isInbox={true}/>
                         :
                         <Text>Belum ada laporan...</Text>
 

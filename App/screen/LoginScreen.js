@@ -5,7 +5,7 @@ import {Content, Button, Text, Container} from "native-base";
 import {baseService} from "../services";
 import {setToken} from "../utils/storeToken";
 import Toaster from "../component/Toaster";
-import {getUserDetail, setUserDetail} from "../utils/storeUserDetail";
+import {setUserDetail} from "../utils/storeUserDetail";
 
 
 const LoginScreen = (props) => {
@@ -100,11 +100,11 @@ const LoginScreen = (props) => {
 
 const styles = StyleSheet.create({
     btnSubmit: {
-        height: 52,
+        height: 50,
         justifyContent: 'center',
     },
     wrapperBtn: {
-        marginTop: 30
+        marginTop: 30,
     },
     cardImage: {
         height: 284,
