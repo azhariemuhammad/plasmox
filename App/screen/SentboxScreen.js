@@ -76,7 +76,7 @@ const SentboxScreen = () => {
                     :
                     (cases.length > 1)
                         ?
-                        <ListCase data={cases}/>
+                        <ListCase data={cases} isInbox={false}/>
                         :
                         <Text>Belum ada laporan...</Text>
                 }

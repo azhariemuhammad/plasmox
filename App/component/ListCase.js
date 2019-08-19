@@ -16,17 +16,33 @@ const ListCase = (props) => {
         props.navigation.navigate('DetailCase', {caseId: item.id})
     }
 
-    const renderItem = ({item}) => (
-        <TouchableOpacity onPress={() => handleNavigateTo(item)} style={styles.ListItem}>
-            <Content>
-                <View style={styles.flexBetween}>
-                    <Text style={styles.title}>{item.caseReportType.toUpperCase()}</Text>
-                    <Text>{formatDate(item.created)}</Text>
-                </View>
-                <Text>Pasien {item.name}, {item.patientContact}... </Text>
-            </Content>
-        </TouchableOpacity>
-    );
+    const truncateText = (text) => {
+        if (text.length > 16) {
+            return text.substring(0, 16).toUpperCase() + '...'
+        } else {
+            return text
+        }
+    }
+
+    const renderItem = ({item}) => {
+        console.log(item)
+        return (
+            <TouchableOpacity onPress={() => handleNavigateTo(item)} style={styles.ListItem}>
+                <Content>
+                    <View style={styles.flexBetween}>
+                        {props.isInbox ?
+                            <Text style={styles.title}>{truncateText(item.healthFacilityFrom)}</Text>
+                            :
+                            <Text style={styles.title}>{truncateText(item.caseReportType)}</Text>
+                        }
+
+                        <Text>{formatDate(item.created)}</Text>
+                    </View>
+                    <Text>Pasien {item.name}, {item.patientContact}... </Text>
+                </Content>
+            </TouchableOpacity>
+        )
+    };
 
     return (
         <FlatList
