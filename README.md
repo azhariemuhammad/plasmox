@@ -8,9 +8,6 @@
     src="https://user-images.githubusercontent.com/19600009/64165459-58eb0600-ce6f-11e9-9a1b-15da52084a5e.png"
  />
 
-<p>Simple and complete DOM testing utilities that encourage good testing
-practices.</p>
-
 </div>
 
 <hr />
