@@ -19,7 +19,7 @@ The tool is user-friendly. By collecting very basic data points, such as geograp
 
 ![video](https://user-images.githubusercontent.com/19600009/64165757-de6eb600-ce6f-11e9-9a72-a7e72d105e78.gif)
 
-## Instalation
+## Installation
 
 
 ```
@@ -34,5 +34,11 @@ start development
 
 ```
     $ react-native run-android
+```
+
+
+## Running Test
+```
+    $ npm run test
 ```
 
