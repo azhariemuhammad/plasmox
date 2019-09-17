@@ -8,7 +8,33 @@ import {baseService} from "../services";
 
 class PatientInfoScreen extends React.Component {
     state = {
-        isLoading: false
+        isLoading: false,
+        districts: [],
+        subDistrict: []
+
+    }
+
+    async componentDidMount() {
+        /* getDistricts should be based on user's city_id */
+        await baseService().getDistricts().then(res => {
+            if (res.data) {
+                this.setState({districts: res.data})
+            }
+        }).catch(e => {
+            console.log(e)
+            Toaster({err: true, text: 'Gagal mendapatakan data kabupaten'})
+        })
+    }
+
+    async handleGetSubDistrictByDistrictId(districtId) {
+        await baseService().getSubDistrict(districtId).then(res => {
+            if (res.data) {
+                this.setState({subDistrict: res.data})
+            }
+        }).catch(e => {
+            console.log(e)
+            Toaster({err: true, text: 'Gagal mendapatakan data kelurahan'})
+        })
     }
 
     async handlePost(caseInfo) {
@@ -36,7 +62,10 @@ class PatientInfoScreen extends React.Component {
                     <FormPatient
                         isLoading={this.state.isLoading}
                         caseReportType={caseReportType}
+                        districts={this.state.districts}
+                        subDistrict={this.state.subDistrict}
                         post={(caseInfo) => this.handlePost(caseInfo)}
+                        handleGetSubDistByDistId={(districtId) => this.handleGetSubDistrictByDistrictId(districtId)}
                     />
                 </Content>
             </Container>
