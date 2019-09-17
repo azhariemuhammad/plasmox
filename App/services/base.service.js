@@ -64,6 +64,19 @@ export default () => {
                 `sent-case-list/`,
                 await optionHeadersAsync()
             )
-        }
+        },
+        getDistricts: async (cityId=1) => {
+            return await  axios.request(
+                `district-list/?city=${cityId}`,
+                await optionHeadersAsync()
+            )
+        },
+        getSubDistrict: async (districtId) => {
+            return await  axios.request(
+                `sub-district-list/?district=${districtId}`,
+                await optionHeadersAsync()
+            )
+        },
+
     }
 }

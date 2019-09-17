@@ -73,7 +73,7 @@ const InboxScreen = () => {
                     ?
                     <ActivityIndicator />
                     :
-                    (cases.length > 1)
+                    (cases.length >= 1)
                         ?
                         <ListCase data={cases} isInbox={true}/>
                         :

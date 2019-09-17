@@ -74,7 +74,7 @@ const SentboxScreen = () => {
                     ?
                     <ActivityIndicator />
                     :
-                    (cases.length > 1)
+                    (cases.length >= 1)
                         ?
                         <ListCase data={cases} isInbox={false}/>
                         :

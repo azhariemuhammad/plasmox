@@ -15,10 +15,14 @@ class FormPatient extends React.Component {
             address: "",
             disease_type: "pf",
             classification_case: "",
-            // chosenDate: "",
             is_pregnant: false,
             patient_contact: "",
             case_report_type: this.props.caseReportType,
+            province: "1",
+            city: "1",
+            district: "",
+            sub_district: "",
+
             errors: {
                 name: false,
                 age: false,
@@ -37,11 +41,22 @@ class FormPatient extends React.Component {
         }
     }
 
+    handleGetSubDistricts() {
+        this.props.handleGetSubDistByDistId(this.state.district)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.district !== this.state.district) {
+            this.handleGetSubDistricts()
+        }
+    }
+
     handleOnChange(val, stateName) {
         this.setState({[stateName]: val}, () => {
             this.handleValidation(stateName)
         })
     }
+
     handleValidation(stateName) {
         let newErrors = this.state.errors
         newErrors[stateName] = Validators.checkNullChars(this.state[stateName])
@@ -49,7 +64,7 @@ class FormPatient extends React.Component {
     }
 
     isValidForm() {
-        const {name, age, address, patient_contact } = this.state.errors
+        const {name, age, address, patient_contact} = this.state.errors
         return (name === false) && (age === false) && (address === false) && (patient_contact === false)
     }
 
@@ -107,6 +122,50 @@ class FormPatient extends React.Component {
                             onChangeText={(address) => this.handleOnChange(address, 'address')}
                         />
                     </View>
+                    {(this.props.districts) &&
+                    <View style={styles.inputHeight}>
+                        <Text style={styles.textSecondary}>Kecamatan</Text>
+                        <Item picker>
+                            <Picker
+                                mode="dropdown"
+                                placeholder="Sirimau"
+                                placeholderStyle={{color: "#bfc6ea"}}
+                                placeholderIconColor="#007aff"
+                                selectedValue={this.state.district}
+                                onValueChange={(value) => this.setState({district: value})}
+                            >
+                                {this.props.districts.map((type, idx) => {
+                                    return (
+                                        <Picker.Item key={idx} label={type.name} value={type.id}/>
+                                    )
+                                })}
+                            </Picker>
+                        </Item>
+                    </View>
+                    }
+
+                    {(this.props.subDistrict) &&
+                        <View style={styles.inputHeight}>
+                            <Text style={styles.textSecondary}>Desa / Kelurahan</Text>
+                            <Item picker>
+                                <Picker
+                                    mode="dropdown"
+                                    placeholder="Amahusu"
+                                    placeholderStyle={{color: "#bfc6ea"}}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={this.state.sub_district}
+                                    onValueChange={(value) => this.setState({sub_district: value})}
+                                >
+                                    {this.props.subDistrict.map((type, idx) => {
+                                        return (
+                                            <Picker.Item key={idx} label={type.name} value={type.id}/>
+                                        )
+                                    })}
+                                </Picker>
+                            </Item>
+                        </View>
+                    }
+
                     <View style={styles.inputHeight}>
                         <Text style={styles.textSecondary}>Jenis Kelamin</Text>
                         <Item picker>
@@ -126,6 +185,7 @@ class FormPatient extends React.Component {
                             </Picker>
                         </Item>
                     </View>
+
                     {(this.state.gender === "2") &&
                     <View style={styles.inputHeight}>
                         <Text style={styles.textSecondary}>Hamil</Text>
@@ -183,27 +243,6 @@ class FormPatient extends React.Component {
                         </Item>
                     </View>
 
-                    {/*<View style={styles.inputHeight}>*/}
-                    {/*    <Text style={styles.textSecondary}>Klasifikasi Kasus</Text>*/}
-                    {/*    <Item picker>*/}
-                    {/*        <Picker*/}
-                    {/*            mode="dropdown"*/}
-                    {/*            placeholderStyle={{color: "#bfc6ea"}}*/}
-                    {/*            placeholderIconColor="#007aff"*/}
-                    {/*            selectedValue={this.state.classification_case}*/}
-                    {/*            onValueChange={value => {*/}
-                    {/*                this.setState({classification_case: value})*/}
-                    {/*            }}*/}
-                    {/*        >*/}
-                    {/*            {classification_case.map((caseItem, idx) => {*/}
-                    {/*                return (*/}
-                    {/*                    <Picker.Item key={idx} label={caseItem.name} value={caseItem.code}/>*/}
-                    {/*                )*/}
-                    {/*            })}*/}
-                    {/*        </Picker>*/}
-                    {/*    </Item>*/}
-                    {/*</View>*/}
-
                     <View style={styles.inputHeight}>
                         <View style={styles.flexRow}>
                             <Text style={styles.textSecondary}>Kontak Pasien</Text>
@@ -224,7 +263,7 @@ class FormPatient extends React.Component {
                         >
                             <Text style={styles.textWhite}>Kirim</Text>
                             {(this.props.isLoading) &&
-                                <ActivityIndicator style={{marginLeft: 16}} />
+                            <ActivityIndicator style={{marginLeft: 16}}/>
                             }
                         </Button>
                     </View>
@@ -263,8 +302,8 @@ const styles = StyleSheet.create({
         paddingLeft: 8
     },
     flexRow: {
-      flex: 1,
-      flexDirection: 'row'
+        flex: 1,
+        flexDirection: 'row'
     }
 })
 
