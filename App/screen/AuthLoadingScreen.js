@@ -8,6 +8,7 @@ import {
 import {Text} from "native-base";
 
 import {getToken} from "../utils/storeToken";
+import NotificationService from "../services/notification.service";
 
 
 class AuthLoadingScreen extends React.Component {
@@ -16,6 +17,8 @@ class AuthLoadingScreen extends React.Component {
         this._bootstrapAsync();
     }
     _bootstrapAsync = async () => {
+        await NotificationService.checkPermission()
+
         const userToken = await getToken()
 
         this.props.navigation.navigate(userToken ? 'App' : 'Auth');

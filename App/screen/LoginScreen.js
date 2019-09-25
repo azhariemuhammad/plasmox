@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {View, TextInput, StyleSheet, ActivityIndicator} from 'react-native'
 import {Content, Button, Text, Container} from "native-base";
 
@@ -6,6 +6,7 @@ import {baseService} from "../services";
 import {setToken} from "../utils/storeToken";
 import Toaster from "../component/Toaster";
 import {setUserDetail} from "../utils/storeUserDetail";
+import NotificationService from "../services/notification.service";
 
 
 const LoginScreen = (props) => {
@@ -14,6 +15,14 @@ const LoginScreen = (props) => {
     const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
+    useEffect(() => {
+        function handleNotification() {
+            NotificationService.createNotificationLIsteners()
+
+            return NotificationService.notificationListener()
+        }
+        return handleNotification()
+    }, [])
     const handleChangePhoneOrEmail = (phone) => {
         setPhone(phone)
     };
