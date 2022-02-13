@@ -5,6 +5,7 @@ import {Content, Button, Text, Container} from "native-base";
 import {baseService} from "../services";
 import {setToken} from "../utils/storeToken";
 import Toaster from "../component/Toaster";
+import {setUserDetail} from "../utils/storeUserDetail";
 
 
 const LoginScreen = (props) => {
@@ -31,13 +32,23 @@ const LoginScreen = (props) => {
         setIsLoading(true)
 
         await baseService().login(dataUser).then(res => {
+            console.log(res)
             setToken(res.data.token)
-            setIsLoading(false)
-            props.navigation.navigate(res.data.token ? 'App' : 'Auth');
+            getUserDetail()
         }).catch(e => {
             console.log('Somenthing went wrong', e)
             Toaster({err: true, text: 'Pastikan telepon atau sandi anda benar'})
             setIsLoading(false)
+        })
+    }
+
+    const getUserDetail = async () => {
+        await baseService().getUserDetail().then(detail => {
+            setUserDetail(detail.data)
+            setIsLoading(false)
+            props.navigation.navigate(detail.data ? 'App' : 'Auth');
+        }).catch(e => {
+            console.log('Something went wrong', e)
         })
     }
 
@@ -72,15 +83,15 @@ const LoginScreen = (props) => {
                     />
                 </View>
                 <View style={styles.wrapperBtn}>
-                <Button
-                    onPress={() => handleSubmit()}
-                    style={styles.btnSubmit}
-                >
-                    <Text> Masuk </Text>
-                    {(isLoading) &&
-                        <ActivityIndicator />
-                    }
-                </Button>
+                    <Button
+                        onPress={() => handleSubmit()}
+                        style={styles.btnSubmit}
+                    >
+                        <Text> Masuk </Text>
+                        {(isLoading) &&
+                        <ActivityIndicator/>
+                        }
+                    </Button>
                 </View>
             </Content>
         </Container>
@@ -89,11 +100,11 @@ const LoginScreen = (props) => {
 
 const styles = StyleSheet.create({
     btnSubmit: {
-        height: 52,
+        height: 50,
         justifyContent: 'center',
     },
     wrapperBtn: {
-        marginTop: 30
+        marginTop: 30,
     },
     cardImage: {
         height: 284,

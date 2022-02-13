@@ -28,14 +28,12 @@ const InboxScreen = () => {
     }, []);
 
     useEffect(() => {
-        function userDetail() {
-            getUserDetail().then(detail => {
-                setUserDetail(detail)
-            }).catch(e => {
-                console.log('Something went wrong', e)
-            })
+        async function userDetail() {
+            const userDetail = await getUserDetail()
+            if (Object.keys(userDetail).length > 1) {
+                setUserDetail(userDetail)
+            }
         }
-
         userDetail()
     }, [])
 
@@ -50,8 +48,8 @@ const InboxScreen = () => {
             setCases({})
 
         })
-
     }
+
     const _onRefresh = () => {
         setRefreshing(true)
         setIsLoading(true)
@@ -77,7 +75,7 @@ const InboxScreen = () => {
                     :
                     (cases.length > 1)
                         ?
-                        <ListCase data={cases}/>
+                        <ListCase data={cases} isInbox={true}/>
                         :
                         <Text>Belum ada laporan...</Text>
 

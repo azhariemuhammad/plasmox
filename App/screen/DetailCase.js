@@ -63,10 +63,6 @@ const DetailCase = (props) => {
                     <Text style={styles.textBody}>{diseaseType}</Text>
                 </View>
                 <View style={styles.inputHeight}>
-                    <Text style={styles.textSecondary}>Klasifikasi Kasus</Text>
-                    <Text style={styles.textBody}>{classificationCase}</Text>
-                </View>
-                <View style={styles.inputHeight}>
                     <Text style={styles.textSecondary}>Kontak Pasien</Text>
                     <Text style={styles.textBody}>{patientContact}</Text>
                 </View>

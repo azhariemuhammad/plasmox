@@ -29,12 +29,11 @@ const SentboxScreen = () => {
     }, []);
 
     useEffect(() => {
-        function userDetail() {
-            getUserDetail().then(detail => {
-                setUserDetail(detail)
-            }).catch(e => {
-                console.log('Something went wrong', e)
-            })
+        async function userDetail() {
+            const userDetail = await getUserDetail()
+            if (userDetail) {
+                setUserDetail(userDetail)
+            }
         }
 
         userDetail()
@@ -77,7 +76,7 @@ const SentboxScreen = () => {
                     :
                     (cases.length > 1)
                         ?
-                        <ListCase data={cases}/>
+                        <ListCase data={cases} isInbox={false}/>
                         :
                         <Text>Belum ada laporan...</Text>
                 }

@@ -14,7 +14,7 @@ class FormPatient extends React.Component {
             age: '',
             address: "",
             disease_type: "pf",
-            classification_case: "imp",
+            classification_case: "",
             // chosenDate: "",
             is_pregnant: false,
             patient_contact: "",
@@ -183,26 +183,26 @@ class FormPatient extends React.Component {
                         </Item>
                     </View>
 
-                    <View style={styles.inputHeight}>
-                        <Text style={styles.textSecondary}>Klasifikasi Kasus</Text>
-                        <Item picker>
-                            <Picker
-                                mode="dropdown"
-                                placeholderStyle={{color: "#bfc6ea"}}
-                                placeholderIconColor="#007aff"
-                                selectedValue={this.state.classification_case}
-                                onValueChange={value => {
-                                    this.setState({classification_case: value})
-                                }}
-                            >
-                                {classification_case.map((caseItem, idx) => {
-                                    return (
-                                        <Picker.Item key={idx} label={caseItem.name} value={caseItem.code}/>
-                                    )
-                                })}
-                            </Picker>
-                        </Item>
-                    </View>
+                    {/*<View style={styles.inputHeight}>*/}
+                    {/*    <Text style={styles.textSecondary}>Klasifikasi Kasus</Text>*/}
+                    {/*    <Item picker>*/}
+                    {/*        <Picker*/}
+                    {/*            mode="dropdown"*/}
+                    {/*            placeholderStyle={{color: "#bfc6ea"}}*/}
+                    {/*            placeholderIconColor="#007aff"*/}
+                    {/*            selectedValue={this.state.classification_case}*/}
+                    {/*            onValueChange={value => {*/}
+                    {/*                this.setState({classification_case: value})*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            {classification_case.map((caseItem, idx) => {*/}
+                    {/*                return (*/}
+                    {/*                    <Picker.Item key={idx} label={caseItem.name} value={caseItem.code}/>*/}
+                    {/*                )*/}
+                    {/*            })}*/}
+                    {/*        </Picker>*/}
+                    {/*    </Item>*/}
+                    {/*</View>*/}
 
                     <View style={styles.inputHeight}>
                         <View style={styles.flexRow}>
